@@ -12,7 +12,7 @@ js/config.js          ← DADOS EDITÁVEIS: WhatsApp, CRN, mensagem padrão
 js/plantinha.js       a plantinha fofa (vasinho com carinha) do hero e do contato
 js/main.js            loader 0→100%, menu, diagrama do ciclo, checklist, trilha
 assets/img/           fotos (.webp) e imagem de compartilhamento (og.jpg)
-assets/favicon.svg    ícone da aba (borboleta)
+assets/favicon.svg    ícone da aba (brotinho)
 robots.txt, sitemap.xml
 qa/                   scripts de teste com Playwright + screenshots (não publicar)
 _originais/           PDFs extraídos e material de referência (não publicar)
