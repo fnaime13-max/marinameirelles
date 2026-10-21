@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_originais/
+Disallow: /qa/
+
+Sitemap: https://marinameirelles.felixdias.com/sitemap.xml
