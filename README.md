@@ -2,14 +2,14 @@
 
 Site de uma página, em HTML, CSS e JS puros. Não precisa de build nem de instalar nada: abra o `index.html` no navegador.
 
-**Conceito: "Romper o ciclo".** A Marina ajuda mulheres a sair do ciclo de dieta restritiva e descontrole. O oval verde que ela usa nos posts virou o ciclo, e a borboleta 🦋 da apresentação dela no Instagram virou a saída. As cores vêm da fase atual dela: branco que desce para o sálvia, verde-floresta nos títulos, e o céu azul e o sol amarelo da ilustração "Acolhimento, nutrição e bem-estar".
+**Conceito: "Romper o ciclo".** A Marina ajuda mulheres a sair do ciclo de dieta restritiva e descontrole. O oval verde que ela usa nos posts virou o ciclo; quando ele se rompe, nasce um broto. As cores vêm da fase atual dela: branco que desce para o sálvia, verde-floresta nos títulos, e o céu azul e o sol amarelo da ilustração "Acolhimento, nutrição e bem-estar".
 
 ## Estrutura
 ```
 index.html            página única (todas as seções)
 css/styles.css        estilos (cores e espaçamentos em variáveis no topo)
 js/config.js          ← DADOS EDITÁVEIS: WhatsApp, CRN, mensagem padrão
-js/borboletas.js      as borboletas em canvas (hero e contato)
+js/plantinha.js       a plantinha fofa (vasinho com carinha) do hero e do contato
 js/main.js            loader 0→100%, menu, diagrama do ciclo, checklist, trilha
 assets/img/           fotos (.webp) e imagem de compartilhamento (og.jpg)
 assets/favicon.svg    ícone da aba (borboleta)
@@ -41,11 +41,11 @@ Substitua `marinameirelles.felixdias.com` em: `index.html` (canonical, og:url, o
 3. Quando mudar o CSS ou o JS, aumente o `?v=` nos links do `index.html` para o navegador não usar a versão antiga em cache.
 
 ## Interações
-- **Loader:** o ciclo "dieta · fome · descontrole · culpa" gira enquanto o anel enche de 0 a 100%. Ao final, o anel se rompe e uma borboleta sai voando.
-- **Borboletas (hero e contato):** fogem do mouse ou do dedo, pousam no anel oval da foto e decolam quando a mão chega perto. Um clique ou toque solta mais duas. Elas desviam do texto e do rosto.
+- **Loader:** o ciclo "dieta · fome · descontrole · culpa" gira enquanto o anel enche de 0 a 100%. Ao final, o anel se rompe e nasce um broto no meio.
+- **Plantinha (hero e contato):** vasinho azul-céu com carinha. As hastes se inclinam na direção do mouse (como planta seguindo o sol), os olhinhos acompanham, ela pisca, fica feliz quando a mão chega perto e, ao toque, dá um pulinho e solta coraçõezinhos.
 - **O ciclo:** toque em cada etapa para ver a explicação. O botão "Romper o ciclo" transforma o círculo no caminho do acompanhamento.
 - **Marque o que você sente:** os itens marcados viram a mensagem enviada no WhatsApp.
-- **Como funciona:** uma borboleta percorre a trilha dos 4 passos conforme a rolagem.
+- **Como funciona:** uma folhinha é levada pela trilha dos 4 passos conforme a rolagem.
 - Com "reduzir movimento" ativado no sistema, tudo fica estático e o loader dura 0,4 s.
 
 ## Testes

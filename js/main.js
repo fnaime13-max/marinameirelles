@@ -3,10 +3,9 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  /* a borboleta entra inline (e não via <use>) para o CSS conseguir bater as asas */
-  var molde = $('#borb');
-  $$('use[href="#borb"]').forEach(function (u) {
-    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  /* os símbolos entram inline (e não via <use>) para o CSS conseguir mexer nas folhas */
+  $$('use[href="#broto"], use[href="#folhinha"]').forEach(function (u) {
+    var molde = $(u.getAttribute('href')), g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     Array.prototype.forEach.call(molde.children, function (f) { g.appendChild(f.cloneNode(true)); });
     u.replaceWith(g);
   });
@@ -20,7 +19,7 @@
     else { el.textContent = 'CRN a preencher'; el.classList.add('pendente'); }
   });
 
-  /* ---------- loader: 0 → 100%, o ciclo se rompe e a borboleta sai ---------- */
+  /* ---------- loader: 0 → 100%, o ciclo se rompe e nasce um broto ---------- */
   var loader = $('#loader'), num = $('#loaderNum'), ciclo = $('#cicloPath'), txt = $('#loaderTxt');
   var progs = $$('.anel-prog', loader);
   var carregou = false, DUR = calma ? 400 : 2700, t0 = performance.now(), mostrado = 0;
@@ -47,8 +46,8 @@
     setTimeout(function () {
       loader.classList.add('saiu'); document.body.classList.remove('carregando');
       document.dispatchEvent(new Event('site:pronto'));
-    }, calma ? 100 : 1250);
-    setTimeout(function () { loader.remove(); }, 2400);
+    }, calma ? 100 : 1700);
+    setTimeout(function () { loader.remove(); }, 2900);
   }
   requestAnimationFrame(passoLoader);
 
@@ -76,31 +75,9 @@
   }, { rootMargin: '-45% 0px -50% 0px' });
   $$('main section[id]').forEach(function (s) { obsSecao.observe(s); });
 
-  /* ---------- borboletas ---------- */
-  // áreas que as borboletas contornam (texto e rosto); folga negativa encolhe a área
-  function zonas(sel, r, folga) {
-    return $$(sel).map(function (el) {
-      var q = el.getBoundingClientRect(), f = folga == null ? 12 : Math.min(q.width, q.height) * folga;
-      return { x: q.left - r.left - f, y: q.top - r.top - f, w: q.width + 2 * f, h: q.height + 2 * f };
-    });
-  }
-  var anel = $('#ovalAnel');
-  var hero = new Enxame($('#borbHero'), {
-    qtd: 12, mobile: 7,
-    evita: function (r) {
-      return zonas('.hero h1, .hero__sub', r).concat(zonas('.oval', r, -.18));
-    },
-    poleiros: function (r) {
-      var a = anel.getBoundingClientRect(), cx = a.left + a.width / 2 - r.left, cy = a.top + a.height / 2 - r.top;
-      var rx = anel.offsetWidth / 2, ry = anel.offsetHeight / 2, giro = -12 * Math.PI / 180;
-      return [-2.3, -1.1, .15, 2.6, -.55].map(function (t) {
-        var x = rx * Math.cos(t), y = ry * Math.sin(t);
-        return { x: cx + x * Math.cos(giro) - y * Math.sin(giro), y: cy + x * Math.sin(giro) + y * Math.cos(giro) - 6, rumo: -Math.PI / 2 + Math.sin(t) * .25 };
-      });
-    }
-  });
-  new Enxame($('#borbFinal'), { qtd: 7, mobile: 4, evita: function (r) { return zonas('.final h2, .final__caixa > p:not(.rotulo), .final .btn', r); } });
-  document.fonts && document.fonts.ready.then(function () { hero.medir(); });
+  /* ---------- plantinhas ---------- */
+  new Plantinha($('#plantaHero'));
+  new Plantinha($('#plantaFinal'));
 
   /* ---------- o ciclo ---------- */
   var DADOS = {
@@ -173,8 +150,8 @@
     window.open(linkWA(msg), '_blank', 'noopener');
   });
 
-  /* ---------- trilha do acompanhamento: a borboleta voa conforme a rolagem ---------- */
-  var trilha = $('#trilha'), svg = $('#trilhaSvg'), base = $('.trilha__base', svg), voo = $('.trilha__voo', svg), borb = $('#trilhaBorb');
+  /* ---------- trilha do acompanhamento: a folhinha é levada pelo vento conforme a rolagem ---------- */
+  var trilha = $('#trilha'), svg = $('#trilhaSvg'), base = $('.trilha__base', svg), voo = $('.trilha__voo', svg), folha = $('#trilhaFolha');
   var marcas = $$('.passo__n', trilha), passos = $$('.passo', trilha), comp = 0;
   function montaTrilha() {
     var r = trilha.getBoundingClientRect(), w = r.width, h = r.height;
@@ -197,7 +174,7 @@
     var L = comp * p, a = voo.getPointAtLength(L), b = voo.getPointAtLength(Math.min(comp, L + 2));
     var ang = p >= 1 ? 0 : Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI + 90;
     voo.style.strokeDashoffset = comp - L;
-    borb.style.transform = 'translate(' + a.x + 'px,' + a.y + 'px) rotate(' + ang + 'deg)';
+    folha.style.transform = 'translate(' + a.x + 'px,' + a.y + 'px) rotate(' + (ang + Math.sin(L / 18) * 25) + 'deg)';
     var trecho = comp / (marcas.length - 1);
     passos.forEach(function (ps, i) { ps.classList.toggle('chegou', L >= trecho * i - 4); });
   }
